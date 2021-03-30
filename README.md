@@ -4,7 +4,7 @@ Gives Windows 10 a fresh start, with better privacy and unwanted features disabl
 All of the features can be optionally disabled from [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json), just by commenting them out.
 
 ```diff
-- They need to be disabled before running the application!
+- NOTE: If user wants to disable some feature, it needs to be disabled before running the application!
 - Use at your own risk.
 ```
 
