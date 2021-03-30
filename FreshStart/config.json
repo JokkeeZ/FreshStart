@@ -1,0 +1,622 @@
+{
+	/**
+	 * If you edit this file, double check "Type" values before running the application.
+	 * Application uses RegistryValueKind enum in C#, which is used to set correct Type in the registry.
+	 * (https://docs.microsoft.com/en-us/dotnet/api/microsoft.win32.registryvaluekind?view=net-5.0#fields)
+	 * 
+	 * Binary       = 3  (REG_BINARY)
+	 * DWord        = 4  (REG_DWORD)
+	 * ExpandString = 2  (REG_EXPAND_SZ)
+	 * MultiString  = 7  (REG_MULTI_SZ)
+	 * None         = -1 (No data type.)
+	 * QWord        = 11 (REG_QWORD)
+	 * String       = 1  (REG_SZ)
+	 * Unknown      = 0  (An unsupported registry data type.)
+	 */
+
+	// Package configuration
+	"UnwantedPackage": {
+		// Remove packages from ALL users
+		"RemoveFromAllUsers": true,
+
+		// Packages to remove.
+		"Packages": [
+			"Twitter",
+			"iHeartRadio",
+			"Flipboard",
+			"OfficeHub",
+			"MicrosoftSolitaireCollection",
+			"Office.OneNote",
+			"Office.Sway",
+			"Microsoft.People",
+			"Microsoft.SkypeApp",
+			"Alarms",
+			"FreshPaint",
+			"SurfaceHub",
+			"TheNewYorkTimes.NYTCrossword",
+			"ConnectivityStore",
+			"Feedback",
+			"GetHelp",
+			"Maps",
+			"SoundRecorder",
+			"XboxApp",
+			"Zune",
+			"communicationsapps",
+			"MinecraftUWP",
+			"ShazamEntertainmentLtd.Shazam",
+			"YourPhone",
+			"Holographic",
+			"CandyCrushSodaSaga",
+			"3DBuilder",
+			"Appconnector",
+			"Bing",
+			"CommsPhone",
+			"Getstarted",
+			"Messaging",
+			"OneConnect",
+			"Netflix",
+			"Dolby",
+			"Bubble",
+			"Spotify",
+			"MicrosoftStickyNotes",
+			"Reality",
+			"OneDrive",
+			"Cortana",
+			"ProPilkki2"
+		]
+	},
+
+	// Registry configuration
+	"Registry": [
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows\\DataCollection",
+			"Keys": [
+				// Disable telemetry
+				{
+					"Key": "AllowTelemetry",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+			"Keys": [
+				// Don't allow Cortana to be used
+				{
+					"Key": "AllowCortana",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable web search from Windows search
+				{
+					"Key": "DisableWebSearch",
+					"Value": 1,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
+			"Keys": [
+				// Disable feature management
+				{
+					"Key": "FeatureManagementEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable OEM pre-installed apps
+				{
+					"Key": "OemPreInstalledAppsEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable pre-installed apps
+				{
+					"Key": "PreInstalledAppsEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable pre-installed apps
+				{
+					"Key": "PreInstalledAppsEverEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Dont allow Windows to install apps silently
+				{
+					"Key": "SilentInstalledAppsEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable slideshow
+				{
+					"Key": "SlideshowEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable suggestions
+				{
+					"Key": "SystemPaneSuggestionsEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search",
+			"Keys": [
+				// Disable Bing search from windows search
+				{
+					"Key": "BingSearchEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Dont give consent to Cortana
+				{
+					"Key": "CortanaConsent",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Disable device history
+				{
+					"Key": "DeviceHistoryEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Deny apps to access to location on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access to camera on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\webcam",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access to account info on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userAccountInformation",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access to contacts on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\contacts",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access to appointments on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appointments",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access to phone calls on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCall",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access phone call history on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCallHistory",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access email on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\email",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access tasks on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userDataTasks",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access radios on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\radios",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access bluetooth sync on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\bluetoothSync",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny apps to access gaze input on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\gazeInput",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Deny access to app diagnostic info on this device
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appDiagnostics",
+			"Keys": [
+				{
+					"Key": "Value",
+					"Value": "Deny",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Set Win10 to use Dark theme
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
+			"Keys": [
+				{
+					"Key": "AppsUseLightTheme",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				{
+					"Key": "SystemUsesLightTheme",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable Toggle Keys
+		{
+			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\ToggleKeys",
+			"Keys": [
+				{
+					"Key": "Flags",
+					"Value": "58",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Disable Sticky Keys
+		{
+			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\StickyKeys",
+			"Keys": [
+				{
+					"Key": "Flags",
+					"Value": "506",
+					"Type": 1 // String
+				}
+			]
+		},
+
+		// Disable "Connected User Experiences and Telemetry" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\DiagTrack",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Print Spooler" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Fax" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Fax",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Xbox Live Networking Service" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxNetApiSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Xbox Accessory Management Service" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxGipSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Xbox Live Game Save" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblGameSave",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Xbox Live Auth Manager" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblAuthManager",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "WalletService" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WalletService",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Telephony" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\TapiSrv",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Printer Extensions and Notifications" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintNotify",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Downloaded Maps Manager" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MapsBroker",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Net.Tcp Port Sharing" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\NetTcpPortSharing",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Parental Controls" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WpcMonSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Phone Service" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PhoneSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Print Workflow" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintWorkflowUserSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Radio Management Service" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RmSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Remote Registry" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteRegistry",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Retail Demo" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RetailDemo",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Routing and Remote Access" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteAccess",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Shared PC Account Manager" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\shpamsvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		// Disable "Windows Mixed Reality OpenXR Service" service
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MixedRealityOpenXRSvc",
+			"Keys": [
+				{
+					"Key": "Start",
+					"Value": 4,
+					"Type": 4 // DWORD
+				}
+			]
+		}
+	]
+}
