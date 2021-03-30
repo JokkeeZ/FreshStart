@@ -8,13 +8,13 @@ All of the features can be optionally disabled from [config.json](https://github
 - Use at your own risk.
 ```
 
-User can also add registry keys to [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json) and give them new values.
+User can also add registry keys to [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json#L69) and give them new values.
 
 # Implemented features
 All of these can be optionally disabled from [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json), just by commenting the objects out.
 
 - Sets dark theme for system & apps
-- Removes pre-installed packages. See [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json)
+- Removes pre-installed packages. See [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json#L23)
   
 - Disables:
   - Toggle keys
