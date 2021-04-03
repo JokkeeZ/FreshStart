@@ -5,11 +5,13 @@ namespace FreshStart
 {
 	class RegistryCleaner
 	{
+		const string SUGGESTED_APPS_REG = @"SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps";
+
 		public void PerformCleanup()
 		{
 			using var logger = new Logger();
 
-			logger.Write("PerformCleanup", $"Starting to perform registry privacy cleanup.");
+			logger.Write("PerformCleanup", $"Starting to perform registry cleanup.");
 
 			foreach (var reg in Program.Config.Registry)
 			{
@@ -34,7 +36,7 @@ namespace FreshStart
 							$"OPERATION  : {key.Key}={key.Value}",
 							$"TYPE: {key.Type}",
 							$"EXCEPTION: {ex}",
-							"********************************************************************************",
+							"***************************************************************************",
 							string.Empty
 						}));
 					}
@@ -42,6 +44,38 @@ namespace FreshStart
 			}
 
 			logger.Write("PerformCleanup", "Registry cleanup ended.");
+		}
+
+		public void RemoveSuggestedApps()
+		{
+			using var logger = new Logger();
+
+			logger.Write("RemoveSuggestedApps", "Looking for suggested apps... ");
+
+			var apps = GetSuggestedApps();
+
+			if (apps.Length <= 0)
+			{
+				logger.Write("RemoveSuggestedApps", "Didn't find any suggested apps!");
+				return;
+			}
+
+			logger.Write("RemoveSuggestedApps", string.Join(Environment.NewLine, new[]
+			{
+				$"Found {apps.Length} suggested apps!",
+				"APPS: ",
+				string.Join(Environment.NewLine, apps)
+			}));
+
+			Registry.CurrentUser.DeleteSubKey(SUGGESTED_APPS_REG);
+
+			logger.Write("RemoveSuggestedApps", $"Removed registry key: HKCU\\{SUGGESTED_APPS_REG}");
+		}
+
+		private string[] GetSuggestedApps()
+		{
+			var sub = Registry.CurrentUser.OpenSubKey(SUGGESTED_APPS_REG);
+			return sub == null ? Array.Empty<string>() : sub.GetValueNames();
 		}
 	}
 }
