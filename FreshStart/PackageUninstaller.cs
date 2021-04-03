@@ -41,29 +41,20 @@ namespace FreshStart
 
 		public void RemovePackages()
 		{
-			using var logger = new Logger();
-
-			var manager = new PackageManager();
-
 			var packages = GetInstalledPackages();
-
-			logger.Write("RemovePackages", $"{packages.Count} unwanted packages found!");
 
 			if (packages.Count == 0)
 			{
-				logger.Write("RemovePackages", "Good news! Didn't find any unwanted packages!");
 				return;
 			}
 
-			logger.Write("RemovePackages", $"Starting to remove unwanted packages.");
-
 			foreach (var package in GetInstalledPackages())
 			{
-				RemovePackage(package, logger);
+				RemovePackage(package);
 			}
 		}
 
-		private void RemovePackage(Package package, Logger logger)
+		private void RemovePackage(Package package)
 		{
 			using var completedEvent = new AutoResetEvent(false);
 
@@ -78,15 +69,10 @@ namespace FreshStart
 
 			if (operation.Status == AsyncStatus.Completed)
 			{
-				logger.Write("RemovePackage", $"Package: {package.Id.Name} removed.");
 				return;
 			}
 
 			var result = operation.GetResults();
-
-			logger.Write("RemovePackage", $"Package: {package.Id.Name} removal failed.", true);
-			logger.Write("RemovePackage", $"ErrorText: {result.ErrorText}", true);
-			logger.Write("RemovePackage", $"ExtendedErrorCode: {result.ExtendedErrorCode}", true);
 		}
 
 		private bool ComparePackageName(Package package, string cfgName)

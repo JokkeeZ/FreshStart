@@ -29,22 +29,12 @@ namespace FreshStart
 			reg.PerformCleanup();
 			reg.RemoveSuggestedApps();
 
-			using var logger = new Logger();
-
-			logger.Write("Main", "Completed. Your OS now has an fresh start.");
-			logger.Write("Main", "To complete cleanup and stop running services, which has been disabled, system restart is required.");
-			logger.Write("Main", "Asking for restart... Waiting for user input.");
-
 			if (AskForRestart())
 			{
 				// Restart in 10 seconds.
 				Process.Start("shutdown.exe", "-r -t 10");
-
-				logger.Write("Main", "Restarting system in 10 seconds. Application will exit now.");
 				return;
 			}
-
-			logger.Write("Main", "Restart denied. Application will exit now.");
 		}
 
 		static bool AskForRestart()

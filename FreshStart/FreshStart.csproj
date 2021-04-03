@@ -79,7 +79,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileLogger.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="PackageUninstaller.cs" />
     <Compile Include="Program.cs" />
