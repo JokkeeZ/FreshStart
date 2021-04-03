@@ -5,7 +5,6 @@ All of the features can be optionally disabled from [config.json](https://github
 
 ```diff
 - NOTE: If user wants to disable some feature, it needs to be commented out from config.json before running the application!
-- Use at your own risk.
 ```
 
 User can also add registry keys to [config.json](https://github.com/JokkeeZ/FreshStart/blob/main/FreshStart/config.json#L69) and give them new values.
