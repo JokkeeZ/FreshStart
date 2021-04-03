@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading;
 using Windows.ApplicationModel;
@@ -13,21 +15,28 @@ namespace FreshStart
 
 		public PackageRemover() => manager = new();
 
-		private List<Package> GetInstalledPackages()
+		public List<Package> GetInstalledPackages()
 		{
-			var packages = new List<Package>();
+			var installedPackages = new List<Package>();
 
 			foreach (var pck in Program.Config.UnwantedPackage.Packages)
 			{
-				var package = manager.FindPackages().FirstOrDefault(x => x.Id.FullName.ToLower().Contains(pck.ToLower()));
+				var packages = manager.FindPackages().Where(x => ComparePackageName(x, pck));
 
-				if (package != null)
+				if (packages != null && packages.Count() > 0)
 				{
-					packages.Add(package);
+					installedPackages.AddRange(packages);
+				}
+
+				var provisionedPackages = manager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
+
+				if (provisionedPackages != null && provisionedPackages.Count() > 0)
+				{
+					installedPackages.AddRange(provisionedPackages);
 				}
 			}
 
-			return packages;
+			return installedPackages.Distinct().ToList();
 		}
 
 		public void RemovePackages()
@@ -69,15 +78,18 @@ namespace FreshStart
 
 			if (operation.Status == AsyncStatus.Completed)
 			{
-				logger.Write("RemovePackages", $"Package: {package.Id.Name} removed.");
+				logger.Write("RemovePackage", $"Package: {package.Id.Name} removed.");
 				return;
 			}
 
 			var result = operation.GetResults();
 
-			logger.Write("RemovePackages", $"Package: {package.Id.Name} removal failed.");
-			logger.Write("RemovePackages", $"ErrorText (if available): {result.ErrorText}");
-			logger.Write("RemovePackages", $"ExtendedErrorCode (if available): {result.ExtendedErrorCode}");
+			logger.Write("RemovePackage", $"Package: {package.Id.Name} removal failed.", true);
+			logger.Write("RemovePackage", $"ErrorText: {result.ErrorText}", true);
+			logger.Write("RemovePackage", $"ExtendedErrorCode: {result.ExtendedErrorCode}", true);
 		}
+
+		private bool ComparePackageName(Package package, string cfgName)
+			=> package.Id.FullName.IndexOf(cfgName, StringComparison.OrdinalIgnoreCase) >= 0;
 	}
 }

@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 namespace FreshStart
@@ -24,6 +27,7 @@ namespace FreshStart
 
 			var reg = new RegistryCleaner();
 			reg.PerformCleanup();
+			reg.RemoveSuggestedApps();
 
 			using var logger = new Logger();
 

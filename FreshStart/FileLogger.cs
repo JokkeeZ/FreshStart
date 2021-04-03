@@ -10,10 +10,13 @@ namespace FreshStart
 
 		public Logger() => stream = new(LOG_FILE, true);
 
-		public void Write(string caller, string text)
+		public void Write(string caller, string text, bool error = false)
 		{
 			stream.WriteLine($"[{DateTime.Now}][{caller}()] ~~> {text}");
+
+			Console.ForegroundColor = error ? ConsoleColor.Red : ConsoleColor.White;
 			Console.WriteLine($"[{caller}] ~~> {text}");
+			Console.ResetColor();
 		}
 
 		public void Dispose() => stream?.Dispose();
