@@ -21,47 +21,78 @@
 
 		// Packages to remove.
 		"Packages": [
-			"Twitter",
-			"iHeartRadio",
-			"Flipboard",
-			"OfficeHub",
-			"MicrosoftSolitaireCollection",
-			"Office.OneNote",
-			"Office.Sway",
+			"Microsoft.3DBuilder",
+			"Microsoft.GetHelp",
+			"Microsoft.Getstarted",
+			"Microsoft.HEVCVideoExtension",
+			"Microsoft.Messaging",
+			"Microsoft.Microsoft3DViewer",
+			"Microsoft.MicrosoftOfficeHub",
+			"Microsoft.MicrosoftSolitaireCollection",
+			"Microsoft.MicrosoftStickyNotes",
+			"Microsoft.Office.OneNote",
+			"Microsoft.OneConnect",
 			"Microsoft.People",
+			"Microsoft.Print3D",
 			"Microsoft.SkypeApp",
-			"Alarms",
-			"FreshPaint",
-			"SurfaceHub",
-			"TheNewYorkTimes.NYTCrossword",
-			"ConnectivityStore",
-			"Feedback",
-			"GetHelp",
-			"Maps",
-			"SoundRecorder",
-			"XboxApp",
-			"Zune",
-			"communicationsapps",
-			"MinecraftUWP",
+			"Microsoft.Wallet",
+			"Microsoft.YourPhone",
+			"Microsoft.WindowsPhone",
+			"Microsoft.CommsPhone",
+			"Microsoft.ConnectivityStore",
+			"Microsoft.WindowsAlarms",
+			"Microsoft.WindowsCamera",
+			"microsoft.windowscommunicationsapps",
+			"Microsoft.WindowsFeedbackHub",
+			"Microsoft.WindowsMaps",
+			"Microsoft.WindowsSoundRecorder",
+			"Windows.ContactSupport",
+			"Microsoft.Xbox.TCUI",
+			"Microsoft.XboxApp",
+			"Microsoft.XboxGameOverlay",
+			"Microsoft.XboxIdentityProvider",
+			"Microsoft.XboxSpeechToTextOverlay",
+			"Microsoft.XboxGamingOverlay",
+			"Microsoft.ZuneMusic",
+			"Microsoft.ZuneVideo",
+			"Microsoft.Music.Preview",
+			"Microsoft.549981C3F5F10", // Cortana
+			"Microsoft.BingTravel",
+			"Microsoft.BingHealthAndFitness",
+			"Microsoft.BingFoodAndDrink",
+			"Microsoft.BingFinance",
+			"Microsoft.BingNews",
+			"Microsoft.BingSports",
+			"Microsoft.BingWeather",
+			"Microsoft.GamingServices",
+			"Microsoft.MicrosoftPowerBIForWindows",
+			"Microsoft.MinecraftUWP",
+			"Microsoft.NetworkSpeedTest",
+			"Microsoft.Office.Sway",
+			"Microsoft.WindowsReadingList",
+			"Microsoft.MixedReality.Portal",
+			"Microsoft.ScreenSketch",
+
+			// 3rd party
+			"king.com.CandyCrushSaga",
+			"king.com.BubbleWitch3Saga",
+			"king.com.CandyCrushSodaSaga",
+			"Drawboard.DrawboardPDF",
+			"46928bounde.EclipseManager",
+			"SpotifyAB.SpotifyMusic",
 			"ShazamEntertainmentLtd.Shazam",
-			"YourPhone",
-			"Holographic",
-			"CandyCrushSodaSaga",
-			"3DBuilder",
-			"Appconnector",
-			"Bing",
-			"CommsPhone",
-			"Getstarted",
-			"Messaging",
-			"OneConnect",
-			"Netflix",
-			"Dolby",
-			"Bubble",
-			"Spotify",
-			"MicrosoftStickyNotes",
-			"Reality",
-			"OneDrive",
-			"Cortana"
+			"NORDCURRENT.COOKINGFEVER",
+			"89006A2E.AutodeskSketchBook",
+			"Facebook.Facebook",
+			"KeeperSecurityInc.Keeper",
+			"DolbyLaboratories.DolbyAccess",
+			"D5EA27B7.Duolingo-LearnLanguagesforFree",
+			"ClearChannelRadioDigital.iHeartRadio",
+			"CAF9E577.Plex",
+			"9E2F88E3.Twitter",
+			"4DF9E0F8.Netflix",
+			"D52A8D61.FarmVille2CountryEscape",
+			"flaregamesGmbH.RoyalRevolt2"
 		]
 	},
 
@@ -325,6 +356,18 @@
 			]
 		},
 
+		// Disable Win10 from suggesting applications in future.
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+			"Keys": [
+				{
+					"Key": "DisableWindowsConsumerFeatures",
+					"Value": 1,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
 		// Set Win10 to use Dark theme
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
@@ -362,6 +405,37 @@
 					"Key": "Flags",
 					"Value": "506",
 					"Type": 1 // String
+				}
+			]
+		},
+
+		// Win10 appearance settings
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
+			"Keys": [
+				// Show file extensions in explorer
+				{
+					"Key": "HideFileExt",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Hide Cortana button
+				{
+					"Key": "ShowCortanaButton",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Hide Task View button
+				{
+					"Key": "ShowTaskViewButton",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				// Use small Taskbar buttons
+				{
+					"Key": "TaskbarSmallIcons",
+					"Value": 1,
+					"Type": 4 // DWORD
 				}
 			]
 		},
