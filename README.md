@@ -29,6 +29,16 @@ All of these can be optionally disabled from [config.json](https://github.com/Jo
   - Suggestions
   - Bing search
   - Device history
+  - App suggestions in future
+
+- Modifies Windows 10 appearance:
+  - Show file extensions in explorer
+  - Hide Cortana button
+  - Hide Task View button
+  - Use small Taskbar buttons 
+
+- Removes:
+  - Suggested apps
 
 - Denies apps to access:
   - Location
