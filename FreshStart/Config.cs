@@ -5,14 +5,14 @@ namespace FreshStart
 {
 	class Config
 	{
-		public UnwantedPackage UnwantedPackage { get; set; }
+		public Packages Packages { get; set; }
 		public List<Reg> Registry { get; set; }
 	}
 
-	class UnwantedPackage
+	class Packages
 	{
 		public bool RemoveFromAllUsers { get; set; }
-		public List<string> Packages { get; set; }
+		public List<string> ToRemove { get; set; }
 	}
 
 	class Reg

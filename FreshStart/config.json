@@ -15,12 +15,12 @@
 	 */
 
 	// Package configuration
-	"UnwantedPackage": {
+	"Packages": {
 		// Remove packages from ALL users
 		"RemoveFromAllUsers": true,
 
 		// Packages to remove.
-		"Packages": [
+		"ToRemove": [
 			"Microsoft.3DBuilder",
 			"Microsoft.GetHelp",
 			"Microsoft.Getstarted",
@@ -97,6 +97,7 @@
 	},
 
 	// Registry configuration
+	// This ONLY modifies existing key values or adds keys/values in the doesn't exist.
 	"Registry": [
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows\\DataCollection",

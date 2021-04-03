@@ -19,7 +19,7 @@ namespace FreshStart
 		{
 			var installedPackages = new List<Package>();
 
-			foreach (var pck in Program.Config.UnwantedPackage.Packages)
+			foreach (var pck in Program.Config.Packages.ToRemove)
 			{
 				var packages = manager.FindPackages().Where(x => ComparePackageName(x, pck));
 
@@ -41,13 +41,6 @@ namespace FreshStart
 
 		public void RemovePackages()
 		{
-			var packages = GetInstalledPackages();
-
-			if (packages.Count == 0)
-			{
-				return;
-			}
-
 			foreach (var package in GetInstalledPackages())
 			{
 				RemovePackage(package);
@@ -59,7 +52,7 @@ namespace FreshStart
 			using var completedEvent = new AutoResetEvent(false);
 
 			var operation = manager.RemovePackageAsync(package.Id.FullName,
-					Program.Config.UnwantedPackage.RemoveFromAllUsers
+					Program.Config.Packages.RemoveFromAllUsers
 					? RemovalOptions.RemoveForAllUsers
 					: RemovalOptions.None);
 
@@ -67,12 +60,12 @@ namespace FreshStart
 
 			completedEvent.WaitOne();
 
-			if (operation.Status == AsyncStatus.Completed)
+			if (operation.Status != AsyncStatus.Completed)
 			{
+				var result = operation.GetResults();
+
 				return;
 			}
-
-			var result = operation.GetResults();
 		}
 
 		private bool ComparePackageName(Package package, string cfgName)
