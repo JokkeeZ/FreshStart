@@ -97,7 +97,7 @@
 	},
 
 	// Registry configuration
-	// This ONLY modifies existing key values or adds keys/values in the doesn't exist.
+	// This ONLY modifies existing key values or adds keys/values if they doesn't exist.
 	"Registry": [
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows\\DataCollection",
