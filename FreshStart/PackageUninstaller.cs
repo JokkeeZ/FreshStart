@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
+using log4net;
 using Windows.ApplicationModel;
 using Windows.Foundation;
 using Windows.Management.Deployment;
@@ -11,6 +11,7 @@ namespace FreshStart
 {
 	class PackageRemover
 	{
+		private readonly ILog log = LogManager.GetLogger(typeof(PackageRemover));
 		private readonly PackageManager manager;
 
 		public PackageRemover() => manager = new();
@@ -41,13 +42,18 @@ namespace FreshStart
 
 		public void RemovePackages()
 		{
+			log.Info("Starting to remove packages..");
+
+			var count = 0;
 			foreach (var package in GetInstalledPackages())
 			{
-				RemovePackage(package);
+				count += RemovePackage(package);
 			}
+
+			log.Info($"Package removal completed. Total of {count} packages removed.");
 		}
 
-		private void RemovePackage(Package package)
+		private int RemovePackage(Package package)
 		{
 			using var completedEvent = new AutoResetEvent(false);
 
@@ -56,7 +62,11 @@ namespace FreshStart
 					? RemovalOptions.RemoveForAllUsers
 					: RemovalOptions.None);
 
-			operation.Completed = (_, _) => completedEvent.Set();
+			operation.Completed = (_, _) =>
+			{
+				log.Info($"Removed {package.Id.FullName}");
+				completedEvent.Set();
+			};
 
 			completedEvent.WaitOne();
 
@@ -64,8 +74,14 @@ namespace FreshStart
 			{
 				var result = operation.GetResults();
 
-				return;
+				log.Error($"--- Package removal failed? Result below ---");
+				log.Error($"ErrorText: {result.ErrorText}");
+				log.Error($"ExtendedErrorCode: {result.ExtendedErrorCode}");
+
+				return 0;
 			}
+
+			return 1;
 		}
 
 		private bool ComparePackageName(Package package, string cfgName)

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using log4net.Config;
 
 [assembly: AssemblyTitle("Gives Windows 10 a fresh start, with better privacy and unwanted features disabled.")]
 [assembly: AssemblyDescription("")]
@@ -13,11 +14,13 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("49a15199-0329-46d4-a400-e8cb00a54530")]
 
+[assembly: XmlConfigurator(ConfigFile = "log4net.config")]
+
 // Version information for an assembly consists of the following four values:
 //
 //      Major Version
 //      Minor Version
 //      Build Number
 //      Revision
-[assembly: AssemblyVersion("0.0.1")]
-[assembly: AssemblyFileVersion("0.0.1")]
+[assembly: AssemblyVersion("0.0.2")]
+[assembly: AssemblyFileVersion("0.0.2")]

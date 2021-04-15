@@ -1,21 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using Microsoft.Win32;
+using log4net;
 using Newtonsoft.Json;
 
 namespace FreshStart
 {
 	class Program
 	{
+		static readonly ILog log = LogManager.GetLogger(typeof(Program));
+
 		public static Config Config;
 
-		[STAThread]
 		static void Main()
 		{
-			Config = LoadConfiguration();
+			Console.ForegroundColor = ConsoleColor.Red;
+			Console.Write("Please configure `config.json` file before running this software.\r\n" +
+						  "Would you like to continue? (Y / N): ");
+			Console.ResetColor();
+
+			var confirm = Console.ReadLine();
+
+			if (confirm is not "y" and not "Y")
+			{
+				return;
+			}
+
+			Console.WriteLine();
+
+			Config = LoadConfiguration("config.json");
 
 			if (Config == null)
 			{
@@ -51,10 +64,8 @@ namespace FreshStart
 			return AskForRestart();
 		}
 
-		static Config LoadConfiguration()
+		static Config LoadConfiguration(string file)
 		{
-			var file = "config.json";
-
 			if (!File.Exists(file))
 			{
 				throw new FileNotFoundException($"File: {file} does not exist.");
@@ -66,7 +77,7 @@ namespace FreshStart
 			}
 			catch (JsonException ex)
 			{
-				Console.WriteLine(ex.Message);
+				log.Error(ex.ToString());
 				return null;
 			}
 		}
