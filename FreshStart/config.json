@@ -142,6 +142,46 @@
 		},
 
 		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Input\\TIPC",
+			"Keys": [
+				// Disable sending Microsoft info about how user writes. (Used to improve typing and writing in future)
+				{
+					"Key": "Enabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
+			"Keys": [
+				// Disable apps to access user advertising id.
+				{
+					"Key": "Enabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
+			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
+			"Keys": [
+				{
+					"Key": "AllowTelemetry",
+					"Value": 0,
+					"Type": 4 // DWORD
+				},
+				{
+					"Key": "MaxTelemetryAllowed",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
 			"Keys": [
 				// Disable feature management
