@@ -130,6 +130,18 @@
 		},
 
 		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Privacy",
+			"Keys": [
+				// Disable tailored experiences with diagnostics data.
+				{
+					"Key": "TailoredExperiencesWithDiagnosticDataEnabled",
+					"Value": 0,
+					"Type": 4 // DWORD
+				}
+			]
+		},
+
+		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
 			"Keys": [
 				// Disable feature management
