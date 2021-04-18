@@ -14,12 +14,9 @@
 	 * Unknown      = 0  (An unsupported registry data type.)
 	 */
 
-	// Package configuration
 	"Packages": {
-		// Remove packages from ALL users
 		"RemoveFromAllUsers": true,
 
-		// Packages to remove.
 		"ToRemove": [
 			"Microsoft.3DBuilder",
 			"Microsoft.GetHelp",
@@ -97,17 +94,15 @@
 		]
 	},
 
-	// Registry configuration
-	// This ONLY modifies existing key values or adds keys/values if they doesn't exist.
 	"Registry": [
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\Policies\\Microsoft\\Windows\\DataCollection",
 			"Keys": [
-				// Disable telemetry
 				{
 					"Key": "AllowTelemetry",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set AllowTelemetry to false"
 				}
 			]
 		},
@@ -115,17 +110,17 @@
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
 			"Keys": [
-				// Don't allow Cortana to be used
 				{
 					"Key": "AllowCortana",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Deny Cortana"
 				},
-				// Disable web search from Windows search
 				{
 					"Key": "DisableWebSearch",
 					"Value": 1,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable web search from Windows search"
 				}
 			]
 		},
@@ -133,11 +128,11 @@
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Privacy",
 			"Keys": [
-				// Disable tailored experiences with diagnostics data.
 				{
 					"Key": "TailoredExperiencesWithDiagnosticDataEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable tailored experiences with diagnostics data"
 				}
 			]
 		},
@@ -145,11 +140,11 @@
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Input\\TIPC",
 			"Keys": [
-				// Disable sending Microsoft info about how user writes. (Used to improve typing and writing in future)
 				{
 					"Key": "Enabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable sending Microsoft info about how you write"
 				}
 			]
 		},
@@ -157,11 +152,11 @@
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
 			"Keys": [
-				// Disable apps to access user advertising id.
 				{
 					"Key": "Enabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable apps to access your advertising id"
 				}
 			]
 		},
@@ -172,12 +167,14 @@
 				{
 					"Key": "AllowTelemetry",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set AllowTelemetry to false"
 				},
 				{
 					"Key": "MaxTelemetryAllowed",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set MaxTelemetryAllowed to false"
 				}
 			]
 		},
@@ -185,47 +182,50 @@
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
 			"Keys": [
-				// Disable feature management
 				{
 					"Key": "FeatureManagementEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set feature management to disabled"
 				},
-				// Disable OEM pre-installed apps
 				{
 					"Key": "OemPreInstalledAppsEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set OEM pre-installed apps to disabled"
+
 				},
-				// Disable pre-installed apps
 				{
 					"Key": "PreInstalledAppsEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set pre-installed apps to disabled"
 				},
-				// Disable pre-installed apps
 				{
 					"Key": "PreInstalledAppsEverEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set pre-installed ever to disabled"
 				},
-				// Dont allow Windows to install apps silently
 				{
 					"Key": "SilentInstalledAppsEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set silent installed apps to disabled"
+
 				},
-				// Disable slideshow
 				{
 					"Key": "SlideshowEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable slideshow"
+
 				},
-				// Disable suggestions
 				{
 					"Key": "SystemPaneSuggestionsEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set System Pane Suggestions to disabled"
 				}
 			]
 		},
@@ -233,515 +233,517 @@
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Search",
 			"Keys": [
-				// Disable Bing search from windows search
 				{
 					"Key": "BingSearchEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable Bing Search"
 				},
-				// Dont give consent to Cortana
 				{
 					"Key": "CortanaConsent",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Don't give Cortana a consent"
+
 				},
-				// Disable device history
 				{
 					"Key": "DeviceHistoryEnabled",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable Device History"
 				}
 			]
 		},
 
-		// Deny apps to access to location on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to location on this device"
 				}
 			]
 		},
 
-		// Deny apps to access to camera on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\webcam",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to camera on this device"
 				}
 			]
 		},
 
-		// Deny apps to access to account info on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userAccountInformation",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to account info on this device"
 				}
 			]
 		},
 
-		// Deny apps to access to contacts on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\contacts",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to contacts on this device"
 				}
 			]
 		},
 
-		// Deny apps to access to appointments on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appointments",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to appointments on this device"
 				}
 			]
 		},
 
-		// Deny apps to access to phone calls on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCall",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access to phone calls on this device"
 				}
 			]
 		},
 
-		// Deny apps to access phone call history on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCallHistory",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access phone call history on this device"
 				}
 			]
 		},
 
-		// Deny apps to access email on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\email",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access email on this device"
 				}
 			]
 		},
 
-		// Deny apps to access tasks on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userDataTasks",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access tasks on this device"
 				}
 			]
 		},
 
-		// Deny apps to access radios on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\radios",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access radios on this device"
 				}
 			]
 		},
 
-		// Deny apps to access bluetooth sync on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\bluetoothSync",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access bluetooth sync on this device"
 				}
 			]
 		},
 
-		// Deny apps to access gaze input on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\gazeInput",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny apps to access gaze input on this device"
 				}
 			]
 		},
 
-		// Deny access to app diagnostic info on this device
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appDiagnostics",
 			"Keys": [
 				{
 					"Key": "Value",
 					"Value": "Deny",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Deny access to app diagnostic info on this device"
 				}
 			]
 		},
 
-		// Disable Win10 from suggesting applications in future.
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
 			"Keys": [
 				{
 					"Key": "DisableWindowsConsumerFeatures",
 					"Value": 1,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable Win10 from suggesting applications in future"
 				}
 			]
 		},
 
-		// Set Win10 to use Dark theme
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
 			"Keys": [
 				{
 					"Key": "AppsUseLightTheme",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set apps to use dark theme"
 				},
 				{
 					"Key": "SystemUsesLightTheme",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Set system to use dark theme"
 				}
 			]
 		},
 
-		// Disable Toggle Keys
 		{
 			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\ToggleKeys",
 			"Keys": [
 				{
 					"Key": "Flags",
 					"Value": "58",
-					"Type": 1 // String
+					"Type": 1, // String,
+					"Summary": "Disable Toggle Keys"
 				}
 			]
 		},
 
-		// Disable Sticky Keys
 		{
 			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\StickyKeys",
 			"Keys": [
 				{
 					"Key": "Flags",
 					"Value": "506",
-					"Type": 1 // String
+					"Type": 1, // String
+					"Summary": "Disable Sticky Keys"
 				}
 			]
 		},
 
-		// Win10 appearance settings
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
 			"Keys": [
-				// Show file extensions in explorer
 				{
 					"Key": "HideFileExt",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Show file extensions in explorer"
 				},
-				// Hide Cortana button
 				{
 					"Key": "ShowCortanaButton",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Hide Cortana button"
 				},
-				// Hide Task View button
 				{
 					"Key": "ShowTaskViewButton",
 					"Value": 0,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Hide Task View button"
 				},
-				// Use small Taskbar buttons
 				{
 					"Key": "TaskbarSmallIcons",
 					"Value": 1,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Use small Taskbar buttons"
 				}
 			]
 		},
 
-		// Disable "Connected User Experiences and Telemetry" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\DiagTrack",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD,
+					"Summary": "Disable 'Connected User Experiences and Telemetry' service"
 				}
 			]
 		},
 
-		// Disable "Print Spooler" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Print Spooler' service"
 				}
 			]
 		},
 
-		// Disable "Fax" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Fax",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Fax' service"
+
 				}
 			]
 		},
 
-		// Disable "Xbox Live Networking Service" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxNetApiSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Xbox Live Networking Service' service"
 				}
 			]
 		},
 
-		// Disable "Xbox Accessory Management Service" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxGipSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Xbox Accessory Management Service' service"
 				}
 			]
 		},
 
-		// Disable "Xbox Live Game Save" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblGameSave",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Xbox Live Game Save' service"
 				}
 			]
 		},
 
-		// Disable "Xbox Live Auth Manager" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblAuthManager",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Xbox Live Auth Manager' service"
 				}
 			]
 		},
 
-		// Disable "WalletService" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WalletService",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'WalletService' service"
 				}
 			]
 		},
 
-		// Disable "Telephony" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\TapiSrv",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Telephony' service"
 				}
 			]
 		},
 
-		// Disable "Printer Extensions and Notifications" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintNotify",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Printer Extensions and Notifications' service"
 				}
 			]
 		},
 
-		// Disable "Downloaded Maps Manager" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MapsBroker",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Downloaded Maps Manager' service"
 				}
 			]
 		},
 
-		// Disable "Net.Tcp Port Sharing" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\NetTcpPortSharing",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Net.Tcp Port Sharing' service"
 				}
 			]
 		},
 
-		// Disable "Parental Controls" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WpcMonSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Parental Controls' service"
 				}
 			]
 		},
 
-		// Disable "Phone Service" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PhoneSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Phone Service' service"
 				}
 			]
 		},
 
-		// Disable "Print Workflow" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintWorkflowUserSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Print Workflow' service"
 				}
 			]
 		},
 
-		// Disable "Radio Management Service" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RmSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Radio Management Service' service"
 				}
 			]
 		},
 
-		// Disable "Remote Registry" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteRegistry",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Remote Registry' service"
 				}
 			]
 		},
 
-		// Disable "Retail Demo" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RetailDemo",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Retail Demo' service"
 				}
 			]
 		},
 
-		// Disable "Routing and Remote Access" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteAccess",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Routing and Remote Access' service"
 				}
 			]
 		},
 
-		// Disable "Shared PC Account Manager" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\shpamsvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Shared PC Account Managers' service"
 				}
 			]
 		},
 
-		// Disable "Windows Mixed Reality OpenXR Service" service
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MixedRealityOpenXRSvc",
 			"Keys": [
 				{
 					"Key": "Start",
 					"Value": 4,
-					"Type": 4 // DWORD
+					"Type": 4, // DWORD
+					"Summary": "Disable 'Windows Mixed Reality OpenXR Service' service"
 				}
 			]
 		}

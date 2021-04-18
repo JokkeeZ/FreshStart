@@ -13,8 +13,9 @@ namespace FreshStart
 	{
 		private readonly ILog log = LogManager.GetLogger(typeof(PackageRemover));
 		private readonly PackageManager manager;
+		private readonly RunType runType;
 
-		public PackageRemover() => manager = new();
+		public PackageRemover(RunType runType) => (manager, this.runType) = (new(), runType);
 
 		public List<Package> GetInstalledPackages()
 		{
@@ -24,14 +25,14 @@ namespace FreshStart
 			{
 				var packages = manager.FindPackages().Where(x => ComparePackageName(x, pck));
 
-				if (packages != null && packages.Count() > 0)
+				if (packages?.Count() > 0)
 				{
 					installedPackages.AddRange(packages);
 				}
 
 				var provisionedPackages = manager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
 
-				if (provisionedPackages != null && provisionedPackages.Count() > 0)
+				if (provisionedPackages?.Count() > 0)
 				{
 					installedPackages.AddRange(provisionedPackages);
 				}
@@ -47,6 +48,11 @@ namespace FreshStart
 			var count = 0;
 			foreach (var package in GetInstalledPackages())
 			{
+				if (runType == RunType.Manual && !Confirm.ConfirmPackageRemoval(package.Id.Name))
+				{
+					continue;
+				}
+
 				count += RemovePackage(package);
 			}
 

@@ -6,6 +6,12 @@ using Newtonsoft.Json;
 
 namespace FreshStart
 {
+	enum RunType
+	{
+		Full,
+		Manual
+	}
+
 	class Program
 	{
 		static readonly ILog log = LogManager.GetLogger(typeof(Program));
@@ -14,20 +20,7 @@ namespace FreshStart
 
 		static void Main()
 		{
-			Console.ForegroundColor = ConsoleColor.Red;
-			Console.Write("Please configure `config.json` file before running this software.\r\n" +
-						  "Would you like to continue? (Y / N): ");
-			Console.ResetColor();
-
-			var confirm = Console.ReadLine();
-
-			if (confirm is not "y" and not "Y")
-			{
-				return;
-			}
-
-			Console.WriteLine();
-
+			var runType = GetRunType();
 			Config = LoadConfiguration("config.json");
 
 			if (Config == null)
@@ -35,10 +28,10 @@ namespace FreshStart
 				return;
 			}
 
-			var packageRemover = new PackageRemover();
+			var packageRemover = new PackageRemover(runType);
 			packageRemover.RemovePackages();
 
-			var reg = new RegistryCleaner();
+			var reg = new RegistryCleaner(runType);
 			reg.PerformCleanup();
 			reg.RemoveSuggestedApps();
 
@@ -50,14 +43,33 @@ namespace FreshStart
 			}
 		}
 
+		static RunType GetRunType()
+		{
+			Console.Write("Would you like to manually select, which features will be disabled/changed? (Y / N): ");
+
+			var input = Console.ReadLine().ToLower();
+
+			if (input is "y" or "n")
+			{
+				return input is "y" ? RunType.Manual : RunType.Full;
+			}
+
+			Console.WriteLine("Invalid input. (Y or N) expected.");
+			return GetRunType();
+		}
+
 		static bool AskForRestart()
 		{
-			Console.Write("Would you like to restart your system now? (Y / N): ");
-			var input = Console.ReadLine();
+			Console.ForegroundColor = ConsoleColor.Red;
 
-			if (input is "Y" or "N" or "y" or "n")
+			Console.Write("Would you like to restart your system now? (Y / N): ");
+			Console.ResetColor();
+
+			var input = Console.ReadLine().ToLower();
+
+			if (input is "y" or "n")
 			{
-				return input is "Y" or "y";
+				return input is "y";
 			}
 
 			Console.WriteLine("Invalid input. (Y or N) expected.");

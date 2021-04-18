@@ -26,5 +26,6 @@ namespace FreshStart
 		public string Key { get; set; }
 		public object Value { get; set; }
 		public RegistryValueKind Type { get; set; }
+		public string Summary { get; set; }
 	}
 }
