@@ -53,6 +53,7 @@
 			"Microsoft.XboxIdentityProvider",
 			"Microsoft.XboxSpeechToTextOverlay",
 			"Microsoft.XboxGamingOverlay",
+			"Microsoft.GamingApp",
 			"Microsoft.ZuneMusic",
 			"Microsoft.ZuneVideo",
 			"Microsoft.Music.Preview",
