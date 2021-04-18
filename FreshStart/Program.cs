@@ -35,6 +35,9 @@ namespace FreshStart
 			reg.PerformCleanup();
 			reg.RemoveSuggestedApps();
 
+			var serviceMngr = new ServiceManager(runType);
+			serviceMngr.DisableServices();
+
 			if (AskForRestart())
 			{
 				// Restart in 10 seconds.

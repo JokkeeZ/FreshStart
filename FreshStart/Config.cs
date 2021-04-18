@@ -7,6 +7,7 @@ namespace FreshStart
 	{
 		public Packages Packages { get; set; }
 		public List<Reg> Registry { get; set; }
+		public List<string> ServicesToDisable { get; set; }
 	}
 
 	class Packages

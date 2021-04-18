@@ -205,7 +205,7 @@
 					"Key": "PreInstalledAppsEverEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
-					"Summary": "Set pre-installed ever to disabled"
+					"Summary": "Set pre-installed apps ever to disabled"
 				},
 				{
 					"Key": "SilentInstalledAppsEnabled",
@@ -493,259 +493,30 @@
 					"Summary": "Use small Taskbar buttons"
 				}
 			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\DiagTrack",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD,
-					"Summary": "Disable 'Connected User Experiences and Telemetry' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Spooler",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Print Spooler' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\Fax",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Fax' service"
-
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxNetApiSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Xbox Live Networking Service' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XboxGipSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Xbox Accessory Management Service' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblGameSave",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Xbox Live Game Save' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\XblAuthManager",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Xbox Live Auth Manager' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WalletService",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'WalletService' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\TapiSrv",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Telephony' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintNotify",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Printer Extensions and Notifications' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MapsBroker",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Downloaded Maps Manager' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\NetTcpPortSharing",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Net.Tcp Port Sharing' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\WpcMonSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Parental Controls' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PhoneSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Phone Service' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\PrintWorkflowUserSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Print Workflow' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RmSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Radio Management Service' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteRegistry",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Remote Registry' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RetailDemo",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Retail Demo' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\RemoteAccess",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Routing and Remote Access' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\shpamsvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Shared PC Account Managers' service"
-				}
-			]
-		},
-
-		{
-			"Path": "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Services\\MixedRealityOpenXRSvc",
-			"Keys": [
-				{
-					"Key": "Start",
-					"Value": 4,
-					"Type": 4, // DWORD
-					"Summary": "Disable 'Windows Mixed Reality OpenXR Service' service"
-				}
-			]
 		}
+	],
+
+	"ServicesToDisable": [
+		"DiagTrack",
+		"Spooler",
+		"Fax",
+		"XboxNetApiSvc",
+		"XboxGipSvc",
+		"XblGameSave",
+		"XblAuthManager",
+		"WalletService",
+		"TapiSrv",
+		"PrintNotify",
+		"MapsBroker",
+		"NetTcpPortSharing",
+		"WpcMonSvc",
+		"PhoneSvc",
+		"PrintWorkflowUserSvc",
+		"RmSvc",
+		"RemoteRegistry",
+		"RetailDemo",
+		"RemoteAccess",
+		"shpamsvc",
+		"MixedRealityOpenXRSvc"
 	]
 }

@@ -19,10 +19,7 @@ namespace FreshStart
 
 			foreach (var reg in Program.Config.Registry)
 			{
-				if (runType == RunType.Full)
-				{
-					log.Debug($"[{reg.Path}]");
-				}
+				log.Debug($"[{reg.Path}]");
 
 				foreach (var key in reg.Keys)
 				{
@@ -44,41 +41,19 @@ namespace FreshStart
 			{
 				var (baseKey, path) = GetBaseKey(reg.Path);
 
-				var oldValue = baseKey.OpenSubKey(path, true).GetValue(key.Key, null);
-				var oldType = baseKey.OpenSubKey(path, true).GetValueKind(key.Key);
+				using var old = baseKey.OpenSubKey(path, true);
+
+				var oldValue = old.GetValue(key.Key, null);
+				var oldType = old.GetValueKind(key.Key);
 
 				if (oldValue.ToString() == key.Value.ToString() && oldType == key.Type)
 				{
-					if (runType == RunType.Full)
-					{
-						log.Debug($"Skipping: {key.Key} --> Value and Type already matches.");
-					}
-
+					log.Debug($"Skipping: {key.Key} --> Value and Type already matches.");
 					return;
 				}
 
-				baseKey.OpenSubKey(path, true).SetValue(key.Key, key.Value, key.Type);
-
-				if (oldType == key.Type)
-				{
-					if (runType == RunType.Full)
-					{
-						log.Debug($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {key.Type})");
-					}
-
-					return;
-				}
-
-				log.Warn(string.Join("\r\n", new[]
-				{
-					" ",
-					"------------------- START OF WARNING -------------------",
-					$"Path [{reg.Path}]",
-					$"Value type changed: {key.Key}",
-					$"Changed value type from {oldType} --> {key.Type}",
-					"-------------------- END OF WARNING --------------------",
-					" "
-				}));
+				old.SetValue(key.Key, key.Value, key.Type);
+				log.Debug($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {key.Type})");
 			}
 			catch (Exception ex)
 			{
@@ -109,20 +84,14 @@ namespace FreshStart
 
 			if (apps.Length <= 0)
 			{
-				if (runType == RunType.Full)
-				{
-					log.Debug("No suggested apps found.");
-				}
+				log.Debug("No suggested apps found.");
 
 				return;
 			}
 
 			Registry.CurrentUser.DeleteSubKey(SUGGESTED_APPS_REG);
 
-			if (runType == RunType.Full)
-			{
-				log.Debug($"Deleted suggested apps reg key: HKCU:\\{SUGGESTED_APPS_REG}");
-			}
+			log.Debug($"Deleted suggested apps reg key: HKCU:\\{SUGGESTED_APPS_REG}");
 		}
 
 		private string[] GetSuggestedApps()

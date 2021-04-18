@@ -18,6 +18,20 @@ namespace FreshStart
 			return ConfirmPackageRemoval(packageName);
 		}
 
+		public static bool ConfirmServiceDisable(string service)
+		{
+			Console.Write($"Disable service: {service}? (Y / N): ");
+			var input = Console.ReadLine().ToLower();
+
+			if (input is "y" or "n")
+			{
+				return input is "y";
+			}
+
+			Console.WriteLine("Invalid input. (Y or N) expected.");
+			return ConfirmServiceDisable(service);
+		}
+
 		public static bool ConfirmRegistryChanges(RegKey key)
 		{
 			Console.Write($"{key.Summary}? (Y / N): ");
