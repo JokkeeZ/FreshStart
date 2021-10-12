@@ -21,7 +21,7 @@ namespace FreshStart
 		{
 			var installedPackages = new List<Package>();
 
-			foreach (var pck in Program.Config.Packages.ToRemove)
+			foreach (var pck in Program.GetConfig().Packages.ToRemove)
 			{
 				var packages = manager.FindPackages().Where(x => ComparePackageName(x, pck));
 
@@ -43,20 +43,32 @@ namespace FreshStart
 
 		public void RemovePackages()
 		{
+			var packages = GetInstalledPackages();
+			
+			if (packages?.Count() <= 0)
+			{
+				log.Info($"Package removal completed. Didn't found packages to remove.");
+				return;
+			}
+
 			log.Info("Starting to remove packages..");
 
-			var count = 0;
-			foreach (var package in GetInstalledPackages())
+			foreach (var package in packages)
 			{
 				if (runType == RunType.Manual && !Confirm.ConfirmPackageRemoval(package.Id.Name))
 				{
 					continue;
 				}
 
-				count += RemovePackage(package);
+				var status = RemovePackage(package);
+				
+				if (status == 1)
+				{
+					Program.GetChanges().IncreasePackagesUninstalled();
+				}
 			}
 
-			log.Info($"Package removal completed. Total of {count} packages removed.");
+			log.Info($"Package removal completed.");
 		}
 
 		private int RemovePackage(Package package)
@@ -64,7 +76,7 @@ namespace FreshStart
 			using var completedEvent = new AutoResetEvent(false);
 
 			var operation = manager.RemovePackageAsync(package.Id.FullName,
-					Program.Config.Packages.RemoveFromAllUsers
+					Program.GetConfig().Packages.RemoveFromAllUsers
 					? RemovalOptions.RemoveForAllUsers
 					: RemovalOptions.None);
 

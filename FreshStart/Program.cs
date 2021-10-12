@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using log4net;
@@ -16,17 +17,24 @@ namespace FreshStart
 	{
 		static readonly ILog log = LogManager.GetLogger(typeof(Program));
 
-		public static Config Config;
+		private static Config config;
+		private static Changes changes;
 
 		static void Main()
 		{
 			var runType = GetRunType();
-			Config = LoadConfiguration("config.json");
 
-			if (Config == null)
+			var cfgFile = ConfigurationManager.AppSettings["configFile"];
+			config = LoadConfiguration(cfgFile);
+
+			if (config == null)
 			{
 				return;
 			}
+
+			log.Debug($"Loaded configuration: {cfgFile}");
+
+			changes = new Changes();
 
 			var packageRemover = new PackageRemover(runType);
 			packageRemover.RemovePackages();
@@ -37,6 +45,11 @@ namespace FreshStart
 
 			var serviceMngr = new ServiceManager(runType);
 			serviceMngr.DisableServices();
+
+			log.Info("Restarting explorer.exe for these changes to take effect on Windows.");
+			RestartExplorer();
+
+			changes.LogChanges(log);
 
 			if (AskForRestart())
 			{
@@ -63,6 +76,8 @@ namespace FreshStart
 
 		static bool AskForRestart()
 		{
+			log.Debug("Asking for system restart...");
+
 			Console.ForegroundColor = ConsoleColor.Red;
 
 			Console.Write("Would you like to restart your system now? (Y / N): ");
@@ -72,11 +87,29 @@ namespace FreshStart
 
 			if (input is "y" or "n")
 			{
+				log.Debug(input is "y" ? "Restarting system in 10 seconds." : "Restart declined.");
 				return input is "y";
 			}
 
 			Console.WriteLine("Invalid input. (Y or N) expected.");
 			return AskForRestart();
+		}
+
+		static void RestartExplorer()
+		{
+			using var process = new Process();
+
+			process.StartInfo = new ProcessStartInfo
+			{
+				FileName = "taskkill.exe",
+				Arguments = "-f -im explorer.exe",
+				WindowStyle = ProcessWindowStyle.Hidden
+			};
+
+			process.Start();
+			process.WaitForExit();
+
+			Process.Start(Path.Combine(Environment.GetEnvironmentVariable("windir"), "explorer.exe"));
 		}
 
 		static Config LoadConfiguration(string file)
@@ -96,5 +129,8 @@ namespace FreshStart
 				return null;
 			}
 		}
+
+		public static Config GetConfig() => config;
+		public static Changes GetChanges() => changes;
 	}
 }

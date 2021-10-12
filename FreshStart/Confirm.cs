@@ -32,7 +32,7 @@ namespace FreshStart
 			return ConfirmServiceDisable(service);
 		}
 
-		public static bool ConfirmRegistryChanges(RegKey key)
+		public static bool ConfirmRegistryChanges(ConfigRegistryKey key)
 		{
 			Console.Write($"{key.Summary}? (Y / N): ");
 			var input = Console.ReadLine().ToLower();

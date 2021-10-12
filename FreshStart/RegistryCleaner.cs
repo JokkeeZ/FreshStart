@@ -17,7 +17,7 @@ namespace FreshStart
 		{
 			log.Info("Starting to change registry values..");
 
-			foreach (var reg in Program.Config.Registry)
+			foreach (var reg in Program.GetConfig().Registry)
 			{
 				log.Debug($"[{reg.Path}]");
 
@@ -35,25 +35,36 @@ namespace FreshStart
 			log.Info($"Done with the registry.");
 		}
 
-		public void ChangeRegistryKeyValue(Reg reg, RegKey key)
+		public void ChangeRegistryKeyValue(ConfigRegistryLocation reg, ConfigRegistryKey key)
 		{
 			try
 			{
 				var (baseKey, path) = GetBaseKey(reg.Path);
-
 				using var old = baseKey.OpenSubKey(path, true);
 
-				var oldValue = old.GetValue(key.Key, null);
-				var oldType = old.GetValueKind(key.Key);
-
-				if (oldValue.ToString() == key.Value.ToString() && oldType == key.Type)
+				if (old == null)
 				{
-					log.Debug($"Skipping: {key.Key} --> Value and Type already matches.");
-					return;
-				}
+					using var newSubKey = baseKey.CreateSubKey(path, true);
+					newSubKey.SetValue(key.Key, key.Value, key.Type);
 
-				old.SetValue(key.Key, key.Value, key.Type);
-				log.Debug($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {key.Type})");
+					log.Info($"CREATED A NEW SUBKEY: {path}: {key.Key}={key.Value} | Type = {key.Type}");
+					Program.GetChanges().IncreaseRegistryKeysMade();
+				}
+				else
+				{
+					var oldValue = old.GetValue(key.Key, null);
+					var oldType = old.GetValueKind(key.Key);
+
+					if (oldValue.ToString() == key.Value.ToString() && oldType == key.Type)
+					{
+						log.Debug($"Skipping: {key.Key} --> Value and Type already matches.");
+						return;
+					}
+
+					old.SetValue(key.Key, key.Value, key.Type);
+					log.Info($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {oldType})");
+					Program.GetChanges().IncreaseRegistryValueChange();
+				}
 			}
 			catch (Exception ex)
 			{
@@ -85,13 +96,12 @@ namespace FreshStart
 			if (apps.Length <= 0)
 			{
 				log.Debug("No suggested apps found.");
-
 				return;
 			}
 
 			Registry.CurrentUser.DeleteSubKey(SUGGESTED_APPS_REG);
 
-			log.Debug($"Deleted suggested apps reg key: HKCU:\\{SUGGESTED_APPS_REG}");
+			log.Info($"Deleted suggested apps reg key: HKCU:\\{SUGGESTED_APPS_REG}");
 		}
 
 		private string[] GetSuggestedApps()

@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 using log4net.Config;
 
-[assembly: AssemblyTitle("Gives Windows 10 a fresh start, with better privacy and unwanted features disabled.")]
+[assembly: AssemblyTitle("Gives Windows 10/11 a fresh start, with better privacy and unwanted features disabled.")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("JokkeeZ")]
@@ -22,5 +22,5 @@ using log4net.Config;
 //      Minor Version
 //      Build Number
 //      Revision
-[assembly: AssemblyVersion("0.0.4")]
-[assembly: AssemblyFileVersion("0.0.4")]
+[assembly: AssemblyVersion("0.0.5")]
+[assembly: AssemblyFileVersion("0.0.5")]
