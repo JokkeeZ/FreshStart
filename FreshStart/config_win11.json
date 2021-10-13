@@ -225,19 +225,19 @@
 					"Key": "IsAADCloudSearchEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
-					"Summary": "Deny Windows Search to provide results from the signed in work or school account."
+					"Summary": "Deny Windows Search to provide results from the signed in work or school account"
 				},
 				{
 					"Key": "IsDeviceSearchHistoryEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
-					"Summary": "Deny Windows to store your search history on this device."
+					"Summary": "Deny Windows to store your search history on this device"
 				},
 				{
 					"Key": "IsMSACloudSearchEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
-					"Summary": "Deny Windows Search to provide results from the signed in Microsoft account."
+					"Summary": "Deny Windows Search to provide results from the signed in Microsoft account"
 				},
 				{
 					"Key": "SafeSearchMode",
@@ -341,6 +341,12 @@
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set apps to use dark theme"
+				},
+				{ // Windows 11 (?)
+					"Key": "EnableTransparency",
+					"Value": 1,
+					"Type": 4, // DWORD
+					"Summary": "Windows and surfaces appear translucent"
 				},
 				{
 					"Key": "SystemUsesLightTheme",
