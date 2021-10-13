@@ -22,8 +22,6 @@ namespace FreshStart
 
 		static void Main()
 		{
-			var runType = GetRunType();
-
 			var cfgFile = ConfigurationManager.AppSettings["configFile"];
 			config = LoadConfiguration(cfgFile);
 
@@ -32,7 +30,9 @@ namespace FreshStart
 				return;
 			}
 
-			log.Debug($"Loaded configuration: {cfgFile}");
+			log.Info($"Loaded configuration: {cfgFile}");
+
+			var runType = GetRunType();
 
 			changes = new Changes();
 
