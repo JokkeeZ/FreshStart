@@ -207,6 +207,12 @@
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set System Pane Suggestions to disabled"
+				},
+				{
+					"Key": "SoftLandingEnabled",
+					"Value": 0,
+					"Type": 4, // DWORD
+					"Summary": "Disable tips about Windows"
 				}
 			]
 		},
