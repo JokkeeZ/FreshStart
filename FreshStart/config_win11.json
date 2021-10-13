@@ -217,6 +217,37 @@
 			]
 		},
 
+		// Windows 11 (?)
+		{
+			"Path": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
+			"Keys": [
+				{
+					"Key": "IsAADCloudSearchEnabled",
+					"Value": 0,
+					"Type": 4, // DWORD
+					"Summary": "Deny Windows Search to provide results from the signed in work or school account."
+				},
+				{
+					"Key": "IsDeviceSearchHistoryEnabled",
+					"Value": 0,
+					"Type": 4, // DWORD
+					"Summary": "Deny Windows to store your search history on this device."
+				},
+				{
+					"Key": "IsMSACloudSearchEnabled",
+					"Value": 0,
+					"Type": 4, // DWORD
+					"Summary": "Deny Windows Search to provide results from the signed in Microsoft account."
+				},
+				{
+					"Key": "SafeSearchMode",
+					"Value": 0, // Possible values: 0 = Off, 1 = Moderate, 2 = Strict
+					"Type": 4, // DWORD
+					"Summary": "Don't filter adult content from my Windows Search web results"
+				}
+			]
+		},
+
 		{
 			// Windows 11
 			"Path": "HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Windows\\Explorer",
