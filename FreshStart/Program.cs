@@ -36,15 +36,36 @@ namespace FreshStart
 
 			changes = new Changes();
 
-			var packageRemover = new PackageRemover(runType);
-			packageRemover.RemovePackages();
+			if (config.Packages.ToRemove.Count > 0)
+			{
+				var packageRemover = new PackageRemover(runType);
+				packageRemover.RemovePackages();
+			}
+			else
+			{
+				log.Info("Skipping packages.. Config doesn't contain any.");
+			}
 
-			var reg = new RegistryCleaner(runType);
-			reg.PerformCleanup();
-			reg.RemoveSuggestedApps();
+			if (config.Registry.Count > 0)
+			{
+				var reg = new RegistryCleaner(runType);
+				reg.PerformCleanup();
+				reg.RemoveSuggestedApps();
+			}
+			else
+			{
+				log.Info("Skipping registry keys.. Config doesn't contain any.");
+			}
 
-			var serviceMngr = new ServiceManager(runType);
-			serviceMngr.DisableServices();
+			if (config.ServicesToDisable.Count > 0)
+			{
+				var serviceMngr = new ServiceManager(runType);
+				serviceMngr.DisableServices();
+			}
+			else
+			{
+				log.Info("Skipping services.. Config doesn't contain any.");
+			}
 
 			log.Info("Restarting explorer.exe for these changes to take effect on Windows.");
 			RestartExplorer();
@@ -55,7 +76,6 @@ namespace FreshStart
 			{
 				// Restart in 10 seconds.
 				Process.Start("shutdown.exe", "-r -t 10");
-				return;
 			}
 		}
 
