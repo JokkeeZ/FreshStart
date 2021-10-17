@@ -29,29 +29,40 @@ namespace FreshStart
 				{
 					installedPackages.AddRange(packages);
 				}
+			}
 
-				var provisionedPackages = packageManager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
+			return installedPackages;
+		}
 
-				if (provisionedPackages?.Count() > 0)
+		public List<Package> GetProvisionedPackages()
+		{
+			var provisionedPackages = new List<Package>();
+
+			foreach (var pck in Program.GetConfig().Packages.ToRemove)
+			{
+				var packages = packageManager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
+
+				if (packages?.Count() > 0)
 				{
-					installedPackages.AddRange(provisionedPackages);
+					provisionedPackages.AddRange(provisionedPackages);
 				}
 			}
 
-			return installedPackages.Distinct().ToList();
+			return provisionedPackages;
 		}
 
 		public void RemovePackages()
 		{
 			var installedPackages = GetInstalledPackages();
-			
-			if (installedPackages?.Count() <= 0)
+			var provisionedPackages = GetProvisionedPackages();
+
+			if (installedPackages.Count <= 0 && provisionedPackages.Count <= 0)
 			{
-				log.Info($"Package removal completed. Didn't found packages to remove.");
+				log.Info($"Package removal completed. Didn't found packages to remove/deprovision.");
 				return;
 			}
 
-			log.Info("Starting to remove packages..");
+			log.Info("Starting to remove and deprovision packages..");
 
 			foreach (var package in installedPackages)
 			{
@@ -66,7 +77,20 @@ namespace FreshStart
 				}
 			}
 
-			log.Info($"Package removal completed.");
+			foreach (var package in provisionedPackages)
+			{
+				if (runType == RunType.Manual && !Confirm.ConfirmPackageRemoval(package.Id.Name))
+				{
+					continue;
+				}
+
+				if (DeprovisionPackage(package))
+				{
+					Changes.PackagesUninstalled++;
+				}
+			}
+
+			log.Info($"Package removal/deprovision completed.");
 		}
 
 		private bool RemovePackage(Package package)
@@ -91,6 +115,34 @@ namespace FreshStart
 				var result = operation.GetResults();
 
 				log.Error($"--- Package removal failed? Result below ---");
+				log.Error($"ErrorText: {result.ErrorText}");
+				log.Error($"ExtendedErrorCode: {result.ExtendedErrorCode}");
+
+				return false;
+			}
+
+			return true;
+		}
+
+		private bool DeprovisionPackage(Package package)
+		{
+			using var completedEvent = new AutoResetEvent(false);
+
+			var operation = packageManager.DeprovisionPackageForAllUsersAsync(package.Id.FullName);
+
+			operation.Completed = (_, _) =>
+			{
+				log.Info($"Deprovisioned {package.Id.FullName}");
+				completedEvent.Set();
+			};
+
+			completedEvent.WaitOne();
+
+			if (operation.Status != AsyncStatus.Completed)
+			{
+				var result = operation.GetResults();
+
+				log.Error($"--- Package deprovision failed? Result below ---");
 				log.Error($"ErrorText: {result.ErrorText}");
 				log.Error($"ExtendedErrorCode: {result.ExtendedErrorCode}");
 
