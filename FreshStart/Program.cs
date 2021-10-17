@@ -13,6 +13,9 @@ namespace FreshStart
 		Manual
 	}
 
+	// TODO 1.0:
+	// Rename ConfigRegistryKey.Key -> ConfigRegistryKey.Name
+	// So it becomes Key.Name not Key.Key
 	class Program
 	{
 		static readonly ILog log = LogManager.GetLogger(typeof(Program));
