@@ -41,7 +41,7 @@ namespace FreshStart
 					key.SetValue("Start", 4, RegistryValueKind.DWord);
 
 					log.Info($"Service: {service} disabled.");
-					Program.GetChanges().IncreaseServicesDisabled();
+					Changes.ServicesDisabled++;
 				}
 				catch (Exception ex)
 				{

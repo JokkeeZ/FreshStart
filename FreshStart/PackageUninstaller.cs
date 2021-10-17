@@ -64,7 +64,7 @@ namespace FreshStart
 				
 				if (status == 1)
 				{
-					Program.GetChanges().IncreasePackagesUninstalled();
+					Changes.PackagesUninstalled++;
 				}
 			}
 

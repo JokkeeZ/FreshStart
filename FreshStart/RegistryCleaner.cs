@@ -48,7 +48,7 @@ namespace FreshStart
 					newSubKey.SetValue(key.Key, key.Value, key.Type);
 
 					log.Info($"CREATED A NEW SUBKEY: {path}: {key.Key}={key.Value} | Type = {key.Type}");
-					Program.GetChanges().IncreaseRegistryKeysMade();
+					Changes.RegistryKeysMade++;
 				}
 				else
 				{
@@ -63,7 +63,7 @@ namespace FreshStart
 
 					old.SetValue(key.Key, key.Value, key.Type);
 					log.Info($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {oldType})");
-					Program.GetChanges().IncreaseRegistryValueChange();
+					Changes.RegistryValuesChanged++;
 				}
 			}
 			catch (Exception ex)

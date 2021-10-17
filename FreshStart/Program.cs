@@ -18,7 +18,6 @@ namespace FreshStart
 		static readonly ILog log = LogManager.GetLogger(typeof(Program));
 
 		private static Config config;
-		private static Changes changes;
 
 		static void Main()
 		{
@@ -33,8 +32,6 @@ namespace FreshStart
 			log.Info($"Loaded configuration: {cfgFile}");
 
 			var runType = GetRunType();
-
-			changes = new Changes();
 
 			if (config.Packages.ToRemove.Count > 0)
 			{
@@ -67,10 +64,15 @@ namespace FreshStart
 				log.Info("Skipping services.. Config doesn't contain any.");
 			}
 
+			Changes.LogChanges(log);
+
+			if (!Changes.ContainsAny())
+			{
+				return;
+			}
+
 			log.Info("Restarting explorer.exe for these changes to take effect on Windows.");
 			RestartExplorer();
-
-			changes.LogChanges(log);
 
 			if (AskForRestart())
 			{
@@ -152,6 +154,5 @@ namespace FreshStart
 		}
 
 		public static Config GetConfig() => config;
-		public static Changes GetChanges() => changes;
 	}
 }

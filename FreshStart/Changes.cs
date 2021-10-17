@@ -3,31 +3,32 @@ using System;
 
 namespace FreshStart
 {
-	class Changes
+	static class Changes
 	{
-		private int registryValuesChanged;
-		private int registryKeysMade;
-		private int servicesDisabled;
-		private int packagesUninstalled;
+		public static int RegistryValuesChanged;
+		public static int RegistryKeysMade;
+		public static int ServicesDisabled;
+		public static int PackagesUninstalled;
 
-		public void LogChanges(ILog log)
+		public static void LogChanges(ILog log)
 		{
 			log.Info(string.Join(Environment.NewLine, new[]
 			{
 				Environment.NewLine,
 				"*******************************************",
-				$"Registry values changed: {registryValuesChanged}",
-				$"Registry keys made: {registryKeysMade}",
-				$"Services disabled: {servicesDisabled}",
-				$"Packages uninstalled: {packagesUninstalled}",
+				$"Registry values changed: {RegistryValuesChanged}",
+				$"Registry keys made: {RegistryKeysMade}",
+				$"Services disabled: {ServicesDisabled}",
+				$"Packages uninstalled: {PackagesUninstalled}",
 				"*******************************************",
 				Environment.NewLine
 			}));
 		}
 
-		public void IncreaseRegistryValueChange() => registryValuesChanged++;
-		public void IncreaseRegistryKeysMade() => registryKeysMade++;
-		public void IncreaseServicesDisabled() => servicesDisabled++;
-		public void IncreasePackagesUninstalled() => packagesUninstalled++;
+		public static bool ContainsAny() =>
+			RegistryValuesChanged > 0
+			|| RegistryKeysMade > 0
+			|| ServicesDisabled > 0
+			|| PackagesUninstalled > 0;
 	}
 }
