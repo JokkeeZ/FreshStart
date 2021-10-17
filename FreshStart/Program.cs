@@ -71,6 +71,8 @@ namespace FreshStart
 
 			if (!Changes.ContainsAny())
 			{
+				// Just to keep program alive.
+				Console.ReadLine();
 				return;
 			}
 
