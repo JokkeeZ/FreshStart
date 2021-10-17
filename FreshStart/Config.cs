@@ -5,21 +5,21 @@ namespace FreshStart
 {
 	class Config
 	{
-		public ConfigPackages Packages { get; set; }
-		public List<ConfigRegistryLocation> Registry { get; set; }
-		public List<string> ServicesToDisable { get; set; }
+		public ConfigPackages Packages { get; set; } = new();
+		public List<ConfigRegistryLocation> Registry { get; set; } = new();
+		public List<string> ServicesToDisable { get; set; } = new();
 	}
 
 	class ConfigPackages
 	{
 		public bool RemoveFromAllUsers { get; set; }
-		public List<string> ToRemove { get; set; }
+		public List<string> ToRemove { get; set; } = new();
 	}
 
 	class ConfigRegistryLocation
 	{
 		public string Path { get; set; }
-		public List<ConfigRegistryKey> Keys { get; set; }
+		public List<ConfigRegistryKey> Keys { get; set; } = new();
 	}
 
 	class ConfigRegistryKey
