@@ -397,12 +397,6 @@
 					"Summary": "Hide Chat button"
 				},
 				{ // WINDOWS 11
-					"Key": "TaskbarAl",
-					"Value": 1,
-					"Type": 4, // DWORD
-					"Summary": "Centre taskbar buttons"
-				},
-				{ // WINDOWS 11
 					"Key": "ShowTaskViewButton",
 					"Value": 0,
 					"Type": 4, // DWORD
