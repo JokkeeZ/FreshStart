@@ -40,9 +40,9 @@ namespace FreshStart
 			try
 			{
 				var (baseKey, path) = GetBaseKey(reg.Path);
-				using var old = baseKey.OpenSubKey(path, true);
+				using var oldSubKey = baseKey.OpenSubKey(path, true);
 
-				if (old == null)
+				if (oldSubKey == null)
 				{
 					using var newSubKey = baseKey.CreateSubKey(path, true);
 					newSubKey.SetValue(key.Key, key.Value, key.Type);
@@ -52,8 +52,8 @@ namespace FreshStart
 				}
 				else
 				{
-					var oldValue = old.GetValue(key.Key, null);
-					var oldType = old.GetValueKind(key.Key);
+					var oldValue = oldSubKey.GetValue(key.Key, null);
+					var oldType = oldSubKey.GetValueKind(key.Key);
 
 					if (oldValue.ToString() == key.Value.ToString() && oldType == key.Type)
 					{
@@ -61,7 +61,7 @@ namespace FreshStart
 						return;
 					}
 
-					old.SetValue(key.Key, key.Value, key.Type);
+					oldSubKey.SetValue(key.Key, key.Value, key.Type);
 					log.Info($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {oldType})");
 					Changes.RegistryValuesChanged++;
 				}
@@ -91,9 +91,9 @@ namespace FreshStart
 
 		public void RemoveSuggestedApps()
 		{
-			var apps = GetSuggestedApps();
+			var suggestedApps = GetSuggestedApps();
 
-			if (apps.Length <= 0)
+			if (suggestedApps.Length <= 0)
 			{
 				log.Debug("No suggested apps found.");
 				return;
@@ -106,8 +106,8 @@ namespace FreshStart
 
 		private string[] GetSuggestedApps()
 		{
-			var sub = Registry.CurrentUser.OpenSubKey(SUGGESTED_APPS_REG);
-			return sub == null ? Array.Empty<string>() : sub.GetValueNames();
+			var subKey = Registry.CurrentUser.OpenSubKey(SUGGESTED_APPS_REG);
+			return subKey == null ? Array.Empty<string>() : subKey.GetValueNames();
 		}
 	}
 }

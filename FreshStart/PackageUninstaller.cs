@@ -12,10 +12,10 @@ namespace FreshStart
 	class PackageRemover
 	{
 		private readonly ILog log = LogManager.GetLogger(typeof(PackageRemover));
-		private readonly PackageManager manager;
+		private readonly PackageManager packageManager;
 		private readonly RunType runType;
 
-		public PackageRemover(RunType runType) => (manager, this.runType) = (new(), runType);
+		public PackageRemover(RunType runType) => (packageManager, this.runType) = (new(), runType);
 
 		public List<Package> GetInstalledPackages()
 		{
@@ -23,14 +23,14 @@ namespace FreshStart
 
 			foreach (var pck in Program.GetConfig().Packages.ToRemove)
 			{
-				var packages = manager.FindPackages().Where(x => ComparePackageName(x, pck));
+				var packages = packageManager.FindPackages().Where(x => ComparePackageName(x, pck));
 
 				if (packages?.Count() > 0)
 				{
 					installedPackages.AddRange(packages);
 				}
 
-				var provisionedPackages = manager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
+				var provisionedPackages = packageManager.FindProvisionedPackages().Where(x => ComparePackageName(x, pck));
 
 				if (provisionedPackages?.Count() > 0)
 				{
@@ -43,9 +43,9 @@ namespace FreshStart
 
 		public void RemovePackages()
 		{
-			var packages = GetInstalledPackages();
+			var installedPackages = GetInstalledPackages();
 			
-			if (packages?.Count() <= 0)
+			if (installedPackages?.Count() <= 0)
 			{
 				log.Info($"Package removal completed. Didn't found packages to remove.");
 				return;
@@ -53,16 +53,14 @@ namespace FreshStart
 
 			log.Info("Starting to remove packages..");
 
-			foreach (var package in packages)
+			foreach (var package in installedPackages)
 			{
 				if (runType == RunType.Manual && !Confirm.ConfirmPackageRemoval(package.Id.Name))
 				{
 					continue;
 				}
 
-				var status = RemovePackage(package);
-				
-				if (status == 1)
+				if (RemovePackage(package))
 				{
 					Changes.PackagesUninstalled++;
 				}
@@ -71,11 +69,11 @@ namespace FreshStart
 			log.Info($"Package removal completed.");
 		}
 
-		private int RemovePackage(Package package)
+		private bool RemovePackage(Package package)
 		{
 			using var completedEvent = new AutoResetEvent(false);
 
-			var operation = manager.RemovePackageAsync(package.Id.FullName,
+			var operation = packageManager.RemovePackageAsync(package.Id.FullName,
 					Program.GetConfig().Packages.RemoveFromAllUsers
 					? RemovalOptions.RemoveForAllUsers
 					: RemovalOptions.None);
@@ -96,10 +94,10 @@ namespace FreshStart
 				log.Error($"ErrorText: {result.ErrorText}");
 				log.Error($"ExtendedErrorCode: {result.ExtendedErrorCode}");
 
-				return 0;
+				return false;
 			}
 
-			return 1;
+			return true;
 		}
 
 		private bool ComparePackageName(Package package, string cfgName)
