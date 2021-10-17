@@ -136,7 +136,8 @@ namespace FreshStart
 		{
 			if (!File.Exists(file))
 			{
-				throw new FileNotFoundException($"File: {file} does not exist.");
+				log.Error($"Config file: {file} does not exist.");
+				return null;
 			}
 
 			try
