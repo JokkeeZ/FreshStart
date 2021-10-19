@@ -105,12 +105,12 @@
 		]
 	},
 
-	"Registry": [
+	"RegistryKeys": [
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Privacy",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "TailoredExperiencesWithDiagnosticDataEnabled",
+					"Name": "TailoredExperiencesWithDiagnosticDataEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Disable tailored experiences with diagnostics data"
@@ -120,9 +120,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Input\\TIPC",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Enabled",
+					"Name": "Enabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Disable sending Microsoft info about how you write"
@@ -132,9 +132,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\AdvertisingInfo",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Enabled",
+					"Name": "Enabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Disable apps to access your advertising id"
@@ -144,15 +144,15 @@
 
 		{
 			"Path": "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\DataCollection",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "AllowTelemetry",
+					"Name": "AllowTelemetry",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set AllowTelemetry to false"
 				},
 				{
-					"Key": "MaxTelemetryAllowed",
+					"Name": "MaxTelemetryAllowed",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set MaxTelemetryAllowed to false"
@@ -162,54 +162,54 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\ContentDeliveryManager",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "FeatureManagementEnabled",
+					"Name": "FeatureManagementEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set feature management to disabled"
 				},
 				{
-					"Key": "OemPreInstalledAppsEnabled",
+					"Name": "OemPreInstalledAppsEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set OEM pre-installed apps to disabled"
 
 				},
 				{
-					"Key": "PreInstalledAppsEnabled",
+					"Name": "PreInstalledAppsEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set pre-installed apps to disabled"
 				},
 				{
-					"Key": "PreInstalledAppsEverEnabled",
+					"Name": "PreInstalledAppsEverEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set pre-installed apps ever to disabled"
 				},
 				{
-					"Key": "SilentInstalledAppsEnabled",
+					"Name": "SilentInstalledAppsEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set silent installed apps to disabled"
 
 				},
 				{
-					"Key": "SlideshowEnabled",
+					"Name": "SlideshowEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Disable slideshow"
 
 				},
 				{
-					"Key": "SystemPaneSuggestionsEnabled",
+					"Name": "SystemPaneSuggestionsEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set System Pane Suggestions to disabled"
 				},
 				{
-					"Key": "SoftLandingEnabled",
+					"Name": "SoftLandingEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Disable tips about Windows"
@@ -220,27 +220,27 @@
 		// Windows 11 (?)
 		{
 			"Path": "HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\SearchSettings",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "IsAADCloudSearchEnabled",
+					"Name": "IsAADCloudSearchEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Deny Windows Search to provide results from the signed in work or school account"
 				},
 				{
-					"Key": "IsDeviceSearchHistoryEnabled",
+					"Name": "IsDeviceSearchHistoryEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Deny Windows to store your search history on this device"
 				},
 				{
-					"Key": "IsMSACloudSearchEnabled",
+					"Name": "IsMSACloudSearchEnabled",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Deny Windows Search to provide results from the signed in Microsoft account"
 				},
 				{
-					"Key": "SafeSearchMode",
+					"Name": "SafeSearchMode",
 					"Value": 0, // Possible values: 0 = Off, 1 = Moderate, 2 = Strict
 					"Type": 4, // DWORD
 					"Summary": "Don't filter adult content from my Windows Search web results"
@@ -251,9 +251,9 @@
 		{
 			// Windows 11
 			"Path": "HKEY_CURRENT_USER\\Software\\Policies\\Microsoft\\Windows\\Explorer",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "DisableSearchBoxSuggestions",
+					"Name": "DisableSearchBoxSuggestions",
 					"Value": 1,
 					"Type": 4, // DWORD
 					"Summary": "Disable web results from Windows Search"
@@ -263,9 +263,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\location",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access to location on this device"
@@ -273,11 +273,37 @@
 			]
 		},
 
+		// Windows 11 (?)
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCall",
+			"Values": [
+				{
+					"Name": "Value",
+					"Value": "Deny",
+					"Type": 1, // String
+					"Summary": "Deny apps to have ability to make phone calls."
+				}
+			]
+		},
+
+		// Windows 11 (?)
+		{
+			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\phoneCallHistory",
+			"Values": [
+				{
+					"Name": "Value",
+					"Value": "Deny",
+					"Type": 1, // String
+					"Summary": "Deny apps to have access to phone call history."
+				}
+			]
+		},
+
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\userAccountInformation",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access to account info on this device"
@@ -287,9 +313,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\contacts",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access to contacts on this device"
@@ -299,9 +325,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\appointments",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access to appointments on this device"
@@ -311,9 +337,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\email",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access email on this device"
@@ -323,9 +349,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\CapabilityAccessManager\\ConsentStore\\radios",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Value",
+					"Name": "Value",
 					"Value": "Deny",
 					"Type": 1, // String
 					"Summary": "Deny apps to access radios on this device"
@@ -335,21 +361,21 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "AppsUseLightTheme",
+					"Name": "AppsUseLightTheme",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set apps to use dark theme"
 				},
 				{ // Windows 11 (?)
-					"Key": "EnableTransparency",
+					"Name": "EnableTransparency",
 					"Value": 1,
 					"Type": 4, // DWORD
 					"Summary": "Windows and surfaces appear translucent"
 				},
 				{
-					"Key": "SystemUsesLightTheme",
+					"Name": "SystemUsesLightTheme",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Set system to use dark theme"
@@ -359,9 +385,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\ToggleKeys",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Flags",
+					"Name": "Flags",
 					"Value": "58",
 					"Type": 1, // String,
 					"Summary": "Disable Toggle Keys"
@@ -371,9 +397,9 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\Control Panel\\Accessibility\\StickyKeys",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "Flags",
+					"Name": "Flags",
 					"Value": "506",
 					"Type": 1, // String
 					"Summary": "Disable Sticky Keys"
@@ -383,21 +409,21 @@
 
 		{
 			"Path": "HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced",
-			"Keys": [
+			"Values": [
 				{
-					"Key": "HideFileExt",
+					"Name": "HideFileExt",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Show file extensions in explorer"
 				},
 				{ // WINDOWS 11
-					"Key": "TaskbarMn",
+					"Name": "TaskbarMn",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Hide Chat button"
 				},
 				{ // WINDOWS 11
-					"Key": "ShowTaskViewButton",
+					"Name": "ShowTaskViewButton",
 					"Value": 0,
 					"Type": 4, // DWORD
 					"Summary": "Hide Taskview button"

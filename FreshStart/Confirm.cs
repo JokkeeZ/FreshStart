@@ -18,6 +18,20 @@ namespace FreshStart
 			return ConfirmPackageRemoval(packageName);
 		}
 
+		public static bool ConfirmPackageDeprovision(string packageName)
+		{
+			Console.Write($"Deprovision package: {packageName}? (Y / N): ");
+			var input = Console.ReadLine().ToLower();
+
+			if (input is "y" or "n")
+			{
+				return input is "y";
+			}
+
+			Console.WriteLine("Invalid input. (Y or N) expected.");
+			return ConfirmPackageDeprovision(packageName);
+		}
+
 		public static bool ConfirmServiceDisable(string service)
 		{
 			Console.Write($"Disable service: {service}? (Y / N): ");
@@ -32,7 +46,7 @@ namespace FreshStart
 			return ConfirmServiceDisable(service);
 		}
 
-		public static bool ConfirmRegistryChanges(ConfigRegistryKey key)
+		public static bool ConfirmRegistryChanges(ConfigRegistryKeyValue key)
 		{
 			Console.Write($"{key.Summary}? (Y / N): ");
 			var input = Console.ReadLine().ToLower();

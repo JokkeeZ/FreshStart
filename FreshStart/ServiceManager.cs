@@ -1,6 +1,6 @@
-﻿using log4net;
+﻿using System;
+using log4net;
 using Microsoft.Win32;
-using System;
 
 namespace FreshStart
 {
@@ -41,11 +41,11 @@ namespace FreshStart
 					key.SetValue("Start", 4, RegistryValueKind.DWord);
 
 					log.Info($"Service: {service} disabled.");
-					Changes.ServicesDisabled++;
+					Program.GetChanges().ReportChange(ChangeType.ServiceDisabled);
 				}
 				catch (Exception ex)
 				{
-					log.Error(ex.ToString());
+					log.Error("Error", ex);
 				}
 			}
 		}

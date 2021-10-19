@@ -73,20 +73,20 @@ namespace FreshStart
 
 				if (RemovePackage(package))
 				{
-					Changes.PackagesUninstalled++;
+					Program.GetChanges().ReportChange(ChangeType.PackageUninstalled);
 				}
 			}
 
 			foreach (var package in provisionedPackages)
 			{
-				if (runType == RunType.Manual && !Confirm.ConfirmPackageRemoval(package.Id.Name))
+				if (runType == RunType.Manual && !Confirm.ConfirmPackageDeprovision(package.Id.Name))
 				{
 					continue;
 				}
 
 				if (DeprovisionPackage(package))
 				{
-					Changes.PackagesUninstalled++;
+					Program.GetChanges().ReportChange(ChangeType.PackageDeprovisioned);
 				}
 			}
 

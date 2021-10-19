@@ -22,5 +22,5 @@ using log4net.Config;
 //      Minor Version
 //      Build Number
 //      Revision
-[assembly: AssemblyVersion("0.0.7")]
-[assembly: AssemblyFileVersion("0.0.7")]
+[assembly: AssemblyVersion("0.1.0")]
+[assembly: AssemblyFileVersion("0.1.0")]

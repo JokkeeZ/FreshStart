@@ -13,14 +13,12 @@ namespace FreshStart
 		Manual
 	}
 
-	// TODO 1.0:
-	// Rename ConfigRegistryKey.Key -> ConfigRegistryKey.Name
-	// So it becomes Key.Name not Key.Key
 	class Program
 	{
 		static readonly ILog log = LogManager.GetLogger(typeof(Program));
 
-		private static Config config;
+		static Config config;
+		static Changes changes;
 
 		static void Main()
 		{
@@ -34,6 +32,8 @@ namespace FreshStart
 
 			log.Info($"Loaded configuration: {cfgFile}");
 
+			changes = new();
+
 			var runType = GetRunType();
 
 			if (config.Packages.ToRemove.Count > 0)
@@ -46,7 +46,7 @@ namespace FreshStart
 				log.Info("Skipping packages.. Config doesn't contain any.");
 			}
 
-			if (config.Registry.Count > 0)
+			if (config.RegistryKeys.Count > 0)
 			{
 				var reg = new RegistryCleaner(runType);
 				reg.PerformCleanup();
@@ -67,10 +67,12 @@ namespace FreshStart
 				log.Info("Skipping services.. Config doesn't contain any.");
 			}
 
-			Changes.LogChanges(log);
+			changes.LogChangesMade();
 
-			if (!Changes.ContainsAny())
+			if (!changes.AnyChangesDone())
 			{
+				log.Info("Completed. Press any key to continue...");
+
 				// Just to keep program alive.
 				Console.ReadLine();
 				return;
@@ -159,5 +161,7 @@ namespace FreshStart
 		}
 
 		public static Config GetConfig() => config;
+
+		public static Changes GetChanges() => changes;
 	}
 }

@@ -9,7 +9,6 @@ namespace FreshStart
 	{
 		private readonly ILog log = LogManager.GetLogger(typeof(RegistryCleaner));
 		private readonly RunType runType;
-		const string SUGGESTED_APPS_REG = @"SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps";
 
 		public RegistryCleaner(RunType runType) => this.runType = runType;
 
@@ -17,59 +16,115 @@ namespace FreshStart
 		{
 			log.Info("Starting to change registry values..");
 
-			foreach (var reg in Program.GetConfig().Registry)
+			foreach (var key in Program.GetConfig().RegistryKeys)
 			{
-				log.Debug($"[{reg.Path}]");
+				log.Debug($"[{key.Path}]");
 
-				foreach (var key in reg.Keys)
+				foreach (var value in key.Values)
 				{
-					if (runType == RunType.Manual && !Confirm.ConfirmRegistryChanges(key))
+					if (IsKeySkippable(key, value))
+					{
+						log.Debug($"Skipping key: {key.Path} Value: {value.Name}... Reason: everything already matches with config.");
+						continue;
+					}
+
+					if (runType == RunType.Manual && !Confirm.ConfirmRegistryChanges(value))
 					{
 						continue;
 					}
 
-					ChangeRegistryKeyValue(reg, key);
+					ChangeRegistryKeyValue(key, value);
 				}
 			}
 
 			log.Info($"Done with the registry.");
 		}
 
-		public void ChangeRegistryKeyValue(ConfigRegistryLocation reg, ConfigRegistryKey key)
+		private void ChangeRegistryKeyValue(ConfigRegistryKey key, ConfigRegistryKeyValue keyValue)
 		{
+			var (baseKey, path) = GetBaseKey(key.Path);
+			using var subKey = baseKey.OpenSubKey(path, true);
+
+			// SubKey does not exist.
+			if (subKey == null)
+			{
+				CreateNewSubKey(baseKey, path, keyValue);
+				return;
+			}
+
+			var oldValue = subKey.GetValue(keyValue.Name, null);
+
+			// SubKey does not have value we're looking for.
+			if (oldValue == null)
+			{
+				subKey.SetValue(keyValue.Name, keyValue.Value, keyValue.Type);
+				log.Info($"CREATED A NEW VALUE FOR SUBKEY: {path}: {keyValue.Name}={keyValue.Value} | Type = {keyValue.Type}");
+
+				Program.GetChanges().ReportChange(ChangeType.RegistryKeyValueMade);
+				return;
+			}
+
 			try
 			{
-				var (baseKey, path) = GetBaseKey(reg.Path);
-				using var oldSubKey = baseKey.OpenSubKey(path, true);
+				var oldType = subKey.GetValueKind(keyValue.Name);
 
-				if (oldSubKey == null)
+				if (ValueAndTypeMatches(oldValue, keyValue, oldType))
 				{
-					using var newSubKey = baseKey.CreateSubKey(path, true);
-					newSubKey.SetValue(key.Key, key.Value, key.Type);
-
-					log.Info($"CREATED A NEW SUBKEY: {path}: {key.Key}={key.Value} | Type = {key.Type}");
-					Changes.RegistryKeysMade++;
+					log.Debug($"Skipping: {keyValue.Name} --> Value and Type already matches.");
+					return;
 				}
-				else
-				{
-					var oldValue = oldSubKey.GetValue(key.Key, null);
-					var oldType = oldSubKey.GetValueKind(key.Key);
 
-					if (oldValue.ToString() == key.Value.ToString() && oldType == key.Type)
-					{
-						log.Debug($"Skipping: {key.Key} --> Value and Type already matches.");
-						return;
-					}
-
-					oldSubKey.SetValue(key.Key, key.Value, key.Type);
-					log.Info($"{key.Key}={key.Value} | Type = {key.Type} (OLD: {key.Key}={oldValue} | Type = {oldType})");
-					Changes.RegistryValuesChanged++;
-				}
+				subKey.SetValue(keyValue.Name, keyValue.Value, keyValue.Type);
+				log.Info($"{keyValue.Name}={keyValue.Value} | Type = {keyValue.Type} (OLD: {keyValue.Name}={oldValue} | Type = {oldType})");
+				Program.GetChanges().ReportChange(ChangeType.RegistryValueChanged);
 			}
 			catch (Exception ex)
 			{
-				log.Error(ex.ToString());
+				log.Error("Error", ex);
 			}
+		}
+
+		private void CreateNewSubKey(RegistryKey baseKey, string path, ConfigRegistryKeyValue keyValue)
+		{
+			using var newSubKey = baseKey.CreateSubKey(path, true);
+			newSubKey.SetValue(keyValue.Name, keyValue.Value, keyValue.Type);
+
+			log.Info($"CREATED A NEW SUBKEY WITH VALUE: {path}: {keyValue.Name}={keyValue.Value} | Type = {keyValue.Type}");
+			Program.GetChanges().ReportChange(ChangeType.RegistryKeyMade);
+			Program.GetChanges().ReportChange(ChangeType.RegistryKeyValueMade);
+		}
+
+		private bool IsKeySkippable(ConfigRegistryKey key, ConfigRegistryKeyValue keyValue)
+		{
+			var (baseKey, path) = GetBaseKey(key.Path);
+
+			using var subKey = baseKey.OpenSubKey(path, true);
+
+			if (subKey == null)
+			{
+				return false;
+			}
+
+			var subKeyValue = subKey.GetValue(keyValue.Name, null);
+
+			if (subKeyValue == null)
+			{
+				return false;
+			}
+
+			var subKeyType = subKey.GetValueKind(keyValue.Name);
+
+			if (subKeyType != keyValue.Type)
+			{
+				return false;
+			}
+
+			if (!ValueAndTypeMatches(subKeyValue, keyValue, subKeyType))
+			{
+				return false;
+			}
+
+			return true;
 		}
 
 		private (RegistryKey baseKey, string path) GetBaseKey(string path)
@@ -91,7 +146,8 @@ namespace FreshStart
 
 		public void RemoveSuggestedApps()
 		{
-			var suggestedApps = GetSuggestedApps();
+			const string suggestedAppsPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager\SuggestedApps";
+			var suggestedApps = GetSuggestedApps(suggestedAppsPath);
 
 			if (suggestedApps.Length <= 0)
 			{
@@ -99,15 +155,18 @@ namespace FreshStart
 				return;
 			}
 
-			Registry.CurrentUser.DeleteSubKey(SUGGESTED_APPS_REG);
+			Registry.CurrentUser.DeleteSubKey(suggestedAppsPath);
 
-			log.Info($"Deleted suggested apps reg key: HKCU:\\{SUGGESTED_APPS_REG}");
+			log.Info($"Deleted suggested apps reg key: HKCU:\\{suggestedAppsPath}");
 		}
 
-		private string[] GetSuggestedApps()
+		private string[] GetSuggestedApps(string path)
 		{
-			var subKey = Registry.CurrentUser.OpenSubKey(SUGGESTED_APPS_REG);
+			using var subKey = Registry.CurrentUser.OpenSubKey(path);
 			return subKey == null ? Array.Empty<string>() : subKey.GetValueNames();
 		}
+
+		private bool ValueAndTypeMatches(object value, ConfigRegistryKeyValue keyValue, RegistryValueKind type)
+			=> value.ToString() == keyValue.Value.ToString() && type == keyValue.Type;
 	}
 }
