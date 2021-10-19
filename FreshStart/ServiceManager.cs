@@ -35,7 +35,7 @@ namespace FreshStart
 
 					if (runType == RunType.Manual && !Confirm.ConfirmServiceDisable(service))
 					{
-						return;
+						continue;
 					}
 
 					key.SetValue("Start", 4, RegistryValueKind.DWord);
